@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrmPackage", "CrmPackage\CrmPackage.csproj", "{22A54774-0E76-4A8A-949B-1570377BC12B}"
+Project("{88A30576-7583-4F75-8136-5EFD2C14ADFF}") = "CrmPackage", "CrmPackage\CrmPackage.csproj", "{22A54774-0E76-4A8A-949B-1570377BC12B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A796D28A-3BE8-41D5-99CF-746FED90281D} = {A796D28A-3BE8-41D5-99CF-746FED90281D}
 		{EFF1988C-B0F5-42B1-963F-1D90C5690778} = {EFF1988C-B0F5-42B1-963F-1D90C5690778}
@@ -39,6 +39,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83288F7B-08BD-41BE-9660-03F5467AAF47}
+	EndGlobalSection
+	GlobalSection(CRMSolutionProperties) = preSolution
+		SolutionIsBoundToCRM = True
 	EndGlobalSection
 	GlobalSection(CRMSolutionProperties) = preSolution
 		SolutionIsBoundToCRM = True
