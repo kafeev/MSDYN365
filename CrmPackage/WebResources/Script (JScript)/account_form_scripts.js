@@ -9,7 +9,6 @@ if (typeof (MSDYN365) === "undefined")
 MSDYN365.Account = (function () {
 
   function onLoad(loadContext) {
-    debugger;
     var v = MSDYN365.Common.getAttrVal("name");
     console.info("Name of account: ", v);
 
