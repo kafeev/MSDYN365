@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BL", "BL", "{F5F3541D-5E26-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{38DC481C-4C53-4D9A-AAD8-37BF8960A777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDYN365.CommonHelper", "Helpers\MSDYN365.CommonHelper\MSDYN365.CommonHelper.csproj", "{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,15 +47,23 @@ Global
 		{E743218A-1C51-4E70-AC1B-6DBE2001C88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E743218A-1C51-4E70-AC1B-6DBE2001C88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E743218A-1C51-4E70-AC1B-6DBE2001C88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E743218A-1C51-4E70-AC1B-6DBE2001C88C} = {596E80EE-C51A-4878-8A52-6FC990C307EC}
+		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF} = {38DC481C-4C53-4D9A-AAD8-37BF8960A777}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83288F7B-08BD-41BE-9660-03F5467AAF47}
+	EndGlobalSection
+	GlobalSection(CRMSolutionProperties) = preSolution
+		SolutionIsBoundToCRM = True
 	EndGlobalSection
 	GlobalSection(CRMSolutionProperties) = preSolution
 		SolutionIsBoundToCRM = True
