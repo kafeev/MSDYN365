@@ -35,7 +35,7 @@ namespace TaskSchedulerAppTeamplate
 
       _log.Info($"Очистка файлов логов за последние {days4saveFiles} дней");
 
-      //ClearLogFiles(Convert.ToInt32(days4saveFiles));
+      ClearLogFiles(Convert.ToInt32(days4saveFiles));
 
       var crmOrgServiceUrl = ConfigurationManager.AppSettings.Get("crmOrgServiceUrl");
       var crmOrgUrl = ConfigurationManager.AppSettings.Get("crmOrgUrl");
