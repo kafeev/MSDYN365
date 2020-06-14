@@ -23,6 +23,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{38DC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDYN365.CommonHelper", "Helpers\MSDYN365.CommonHelper\MSDYN365.CommonHelper.csproj", "{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "web", "web", "{48B9C13E-DF14-44AE-B289-71B910267243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDYN365.DaDataProxy", "web\MSDYN365.DaDataProxy\MSDYN365.DaDataProxy.csproj", "{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDYN365.DaDataProxy.Tests", "web\MSDYN365.DaDataProxy.Tests\MSDYN365.DaDataProxy.Tests.csproj", "{AFACA86E-2586-4227-ABE5-2A7151B71308}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +57,14 @@ Global
 		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFACA86E-2586-4227-ABE5-2A7151B71308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFACA86E-2586-4227-ABE5-2A7151B71308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFACA86E-2586-4227-ABE5-2A7151B71308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFACA86E-2586-4227-ABE5-2A7151B71308}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,9 +72,14 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E743218A-1C51-4E70-AC1B-6DBE2001C88C} = {596E80EE-C51A-4878-8A52-6FC990C307EC}
 		{9581E614-8527-4860-B0BB-FAFE4D4EA9EF} = {38DC481C-4C53-4D9A-AAD8-37BF8960A777}
+		{8E967216-D1EC-4EB0-B6F5-D139BCF6A75F} = {48B9C13E-DF14-44AE-B289-71B910267243}
+		{AFACA86E-2586-4227-ABE5-2A7151B71308} = {48B9C13E-DF14-44AE-B289-71B910267243}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83288F7B-08BD-41BE-9660-03F5467AAF47}
+	EndGlobalSection
+	GlobalSection(CRMSolutionProperties) = preSolution
+		SolutionIsBoundToCRM = True
 	EndGlobalSection
 	GlobalSection(CRMSolutionProperties) = preSolution
 		SolutionIsBoundToCRM = True
