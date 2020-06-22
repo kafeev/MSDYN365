@@ -47,7 +47,7 @@ MSDYN365.Common = (function () {
 
   /// <summary>присвоить значение</summary>
   function _setAttrVal(attrName, val) {
-    let v = Xrm.Page.getAttribute(attrName);
+    let v = xp.getAttribute(attrName);
     if (v) {
       v.setValue(val);
     }
@@ -104,14 +104,114 @@ MSDYN365.Loader = (function () {
 
 })();
 
-MSDYN365.WebApi = function () {
+/// <summary>методы для работы с CRM WebApi</summary>
+MSDYN365.WebApi = (function () {
 
-  function _get() {
+  let _webApiUrl = (Xrm.Page.context.getClientUrl() || location.protocol + "//" + location.host) + "/api/data/v8.0/";
 
+  function _sendRequestSync(query, data, formatValue, method) {
+
+    let responseOut = null;
+    let req = new XMLHttpRequest();
+    req.open(method, query, false);
+    req.setRequestHeader("OData-MaxVersion", "4.0");
+    req.setRequestHeader("OData-Version", "4.0");
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    if (formatValue)
+      req.setRequestHeader("Prefer", "odata.include-annotations=*");
+
+    req.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        req.onreadystatechange = null;
+        if (this.status === 200) {
+          responseOut = JSON.parse(this.response);
+        }
+        else {
+          alert(this.statusText);
+        }
+      }
+    };
+    if (data)
+      req.send(JSON.stringify(data));
+    else
+      req.send();
+
+
+
+    return responseOut;
   }
 
-  function _fetch() {
+  function _sendRequest(query, data, formatValue, method, sync) {
 
+    if (typeof (formatValue) == "undefined")
+      formatValue = false;
+
+    if (sync)
+      return _sendRequestSync(query, data, formatValue, method);
+
+    if (typeof ($) == "undefined") {
+      alert("Для работы необходимо подлючить библиотеку JQuery!");
+      return;
+    }
+
+    // вернет promise
+    return $.ajax({
+      async: true,
+      type: method || "GET",
+      url: _webApiUrl + query,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("OData-MaxVersion", "4.0");
+        xhr.setRequestHeader("OData-Version", "4.0");
+        if (formatValue)
+          xhr.setRequestHeader("Prefer", "odata.include-annotations=*");
+      },
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      data: data ? JSON.stringify(data) : null
+    })
+      .fail(function (response) {
+        let def = new $.Deferred();
+        def.reject(response.responseJSON ? response.responseJSON.error : response);
+        return def;
+      });
+  }
+
+
+  function _get(entitySetName, query, entityId, sync) {
+    if (entityId) {
+      return _sendRequest(entitySetName + "(" + entityId.replace(/[{}]/g, "") + ")?" + query, null, true, "GET", sync);
+    }
+    else
+      return _sendRequest(entitySetName + "?" + query, null, true, "GET", sync);
+  }
+
+  function _fetch(entitySetName, fetchText, sync) {
+    fetchText = escape(fetchText);
+
+    let responseOut = null;
+    let req = new XMLHttpRequest();
+    req.open("GET", _webApiUrl + entitySetName + "?fetchXml=" + fetchText, false);
+    req.setRequestHeader("OData-MaxVersion", "4.0");
+    req.setRequestHeader("OData-Version", "4.0");
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+    req.setRequestHeader("Prefer", "odata.include-annotations=*");
+    req.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        req.onreadystatechange = null;
+        if (this.status === 200) {
+          console.log("0");
+          responseOut = JSON.parse(this.response);
+        }
+        else {
+          alert(this.statusText);
+        }
+      }
+    };
+    req.send();
+    return responseOut;
   }
 
   function _update() {
@@ -140,4 +240,4 @@ MSDYN365.WebApi = function () {
     create: _create,
     executeAction: _executeAction
   }
-}
+})();

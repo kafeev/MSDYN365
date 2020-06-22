@@ -12,6 +12,7 @@ MSDYN365.Account = (function () {
     var v = MSDYN365.Common.getAttrVal("name");
     console.info("Name of account: ", v);
 
+    let accEnt = MSDYN365.WebApi.getEntity("accounts", "$select=name,createdon,statecode,_ownerid_value", Xrm.Page.data.entity.getId(), true);
   }
 
   function onSave(saveContext) {
