@@ -105,7 +105,8 @@ MSDYN365.Loader = (function () {
 })();
 
 /// <summary>методы для работы с CRM WebApi</summary>
-MSDYN365.WebApi = (function () {
+MSDYN365.WebApi = {};
+MSDYN365.WebApi.entity = (function () {
 
   let _webApiUrl = (Xrm.Page.context.getClientUrl() || location.protocol + "//" + location.host) + "/api/data/v8.0/";
 
@@ -113,7 +114,7 @@ MSDYN365.WebApi = (function () {
 
     let responseOut = null;
     let req = new XMLHttpRequest();
-    req.open(method, query, false);
+    req.open(method, _webApiUrl + query, false);
     req.setRequestHeader("OData-MaxVersion", "4.0");
     req.setRequestHeader("OData-Version", "4.0");
     req.setRequestHeader("Accept", "application/json");
@@ -127,6 +128,12 @@ MSDYN365.WebApi = (function () {
         if (this.status === 200) {
           responseOut = JSON.parse(this.response);
         }
+        if (this.status === 204 && method == "POST") {
+          let uri = this.getResponseHeader("OData-EntityId");
+          let regExp = /\(([^)]+)\)/;
+          let matches = regExp.exec(uri);
+          responseOut = matches[1];
+        }
         else {
           alert(this.statusText);
         }
@@ -137,12 +144,10 @@ MSDYN365.WebApi = (function () {
     else
       req.send();
 
-
-
     return responseOut;
   }
 
-  function _sendRequest(query, data, formatValue, method, sync) {
+  function _sendRequest(query, data, method, sync, formatValue) {
 
     if (typeof (formatValue) == "undefined")
       formatValue = false;
@@ -156,6 +161,44 @@ MSDYN365.WebApi = (function () {
     }
 
     // вернет promise
+
+    //$.ajax({
+    //  async: true,
+    //  type: "POST",
+    //  url: Xrm.Page.context.getClientUrl() + "/api/data/v8.0/accounts",
+    //  contentType: "application/json; charset=utf-8",
+    //  datatype: "json",
+    //  data: JSON.stringify(data),
+    //  beforeSend: function (XMLHttpRequest) {
+    //    XMLHttpRequest.setRequestHeader("OData-MaxVersion", "4.0");
+    //    XMLHttpRequest.setRequestHeader("OData-Version", "4.0");
+    //    XMLHttpRequest.setRequestHeader("Accept", "application/json");
+    //  },
+    //  error: function (xhr, textStatus, errorThrown) {
+    //    alert(textStatus + " " + errorThrown);
+    //    let def = new $.Deferred();
+    //    def.reject(xhr.responseJSON ? xhr.responseJSON.error : xhr);
+    //    return def;
+    //  }
+    //})
+    //  .done(function (data, textStatus, xhr) {
+
+    //    if (xhr.status == 200) {
+    //      let def = new $.Deferred();
+    //      def.resolve(JSON.parse(data));
+    //      return def;
+    //    }
+
+    //    if (xhr.status === 204) {
+    //      let def = new $.Deferred();
+    //      let entityUrl = xhr.getResponseHeader("OData-EntityId");
+    //      let entityId = /\((.+)\)/.exec(entityUrl)[1];
+    //      def.resolve(entityId);
+    //      return def.promise();
+    //    }
+
+    //  });
+
     return $.ajax({
       async: true,
       type: method || "GET",
@@ -181,10 +224,10 @@ MSDYN365.WebApi = (function () {
 
   function _get(entitySetName, query, entityId, sync) {
     if (entityId) {
-      return _sendRequest(entitySetName + "(" + entityId.replace(/[{}]/g, "") + ")?" + query, null, true, "GET", sync);
+      query = entitySetName + "(" + entityId.replace(/[{}]/g, "") + ")?" + query;
     }
-    else
-      return _sendRequest(entitySetName + "?" + query, null, true, "GET", sync);
+
+    return _sendRequest(query, null, "GET", sync);
   }
 
   function _fetch(entitySetName, fetchText, sync) {
@@ -214,16 +257,17 @@ MSDYN365.WebApi = (function () {
     return responseOut;
   }
 
-  function _update() {
-
+  function _update(entitySetName, entity, entityId, sync) {
+    let query = entitySetName + "(" + entityId.replace(/[{}]/g, "") + ")";
+    return _sendRequest(query, entity, "PATCH", sync);
   }
 
   function _delete() {
 
   }
 
-  function _create() {
-
+  function _create(entitySetName, entity, sync) {
+    return _sendRequest(entitySetName, entity, "POST", sync);
   }
 
   function _executeAction() {
@@ -233,11 +277,12 @@ MSDYN365.WebApi = (function () {
 
 
   return {
-    getEntity: _get,
+    get: _get,
+    put: _create,
+    patch: _update,
+    delete: _delete,
+
     fetch: _fetch,
-    updateEntity: _update,
-    deleteEntity: _delete,
-    create: _create,
     executeAction: _executeAction
   }
 })();

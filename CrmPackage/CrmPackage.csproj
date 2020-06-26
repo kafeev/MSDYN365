@@ -68,6 +68,16 @@
       <UniqueName>kr_/common.js</UniqueName>
       <WebResourceType>Script</WebResourceType>
     </CRMWebResource>
+    <CRMWebResource Include="WebResources\Script %28JScript%29\incident_form_scripts.js">
+      <DisplayName>incident_form_scripts.js</DisplayName>
+      <UniqueName>kr_/incident_form_scripts.js</UniqueName>
+      <WebResourceType>Script</WebResourceType>
+    </CRMWebResource>
+    <CRMWebResource Include="WebResources\Script %28JScript%29\jqueryExt.js">
+      <DisplayName>jqueryExt</DisplayName>
+      <UniqueName>kr_jqueryExt</UniqueName>
+      <WebResourceType>Script</WebResourceType>
+    </CRMWebResource>
     <CRMWebResource Include="WebResources\Script %28JScript%29\MSXRMTOOLS.Xrm.Page.2016.js">
       <DisplayName>MSXRMTOOLS.Xrm.Page.2016.js</DisplayName>
       <UniqueName>kr_/MSXRMTOOLS.Xrm.Page.2016.js</UniqueName>
