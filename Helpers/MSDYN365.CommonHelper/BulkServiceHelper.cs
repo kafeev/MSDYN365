@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MSDYN365.CommonHelper
 {
-  public static class ServiceHelper
+  public static class BulkServiceHelper
   {
 
     #region Main Methods
