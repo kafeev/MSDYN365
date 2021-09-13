@@ -81,6 +81,71 @@ namespace MSDYN365.CommonHelper
       }
     }
 
+    public bool ValueChanged(string attrName)
+    {
+      var changed = false;
+      if (Target.Contains(attrName))
+      {
+        object oldValue = (PreEntity != null && PreEntity.Contains(attrName)) ? PreEntity[attrName] : null;
+        object newValue = Target[attrName];
+
+        changed = ValueChanged(oldValue, newValue);
+      }
+
+      return changed;
+    }
+
+    public bool ValueChanged(object oldValue, object newValue)
+    {
+      var changed = false;
+
+      if (oldValue == null && newValue == null)
+        changed = false;
+      else if (oldValue != null && newValue == null)
+        changed = true;
+      else if (oldValue == null && newValue != null)
+        changed = true;
+      else
+      {
+        string attrType = (oldValue != null) ? oldValue.GetType().Name : (newValue != null) ? newValue.GetType().Name : String.Empty;
+        switch (attrType.ToLower())
+        {
+          case "entityreference":
+            changed = (((EntityReference)oldValue).Id != ((EntityReference)newValue).Id);
+            break;
+          case "optionsetvalue":
+            changed = (((OptionSetValue)oldValue).Value != ((OptionSetValue)newValue).Value);
+            break;
+          case "money":
+            changed = (((Money)oldValue).Value != ((Money)newValue).Value);
+            break;
+          case "decimal":
+            changed = ((decimal)oldValue != (decimal)newValue);
+            break;
+          case "double":
+            changed = ((double)oldValue != (double)newValue);
+            break;
+          case "datetime":
+            changed = ((DateTime)oldValue != (DateTime)newValue);
+            break;
+          case "int32":
+          case "int":
+            changed = ((int)oldValue != (int)newValue);
+            break;
+          case "string":
+            changed = ((string)oldValue != (string)newValue);
+            break;
+          case "bool":
+            changed = ((bool)oldValue != (bool)newValue);
+            break;
+          default:
+            changed = (oldValue != newValue);
+            break;
+        }
+      }
+
+      return changed;
+    }
 
     public T GetAttributeValue<T>(string attributeName, object defaultValue = null)
     {
